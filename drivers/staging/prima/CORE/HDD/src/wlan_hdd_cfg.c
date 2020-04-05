@@ -3592,13 +3592,6 @@ REG_VARIABLE( CFG_EXTSCAN_ENABLE, WLAN_PARAM_Integer,
                  CFG_OPTIMIZE_CA_EVENT_DISABLE,
                  CFG_OPTIMIZE_CA_EVENT_ENABLE ),
 
-   REG_VARIABLE(CFG_FWR_MEM_DUMP_NAME, WLAN_PARAM_Integer,
-                 hdd_config_t,enableFwrMemDump,
-                 VAR_FLAGS_OPTIONAL | VAR_FLAGS_RANGE_CHECK_ASSUME_DEFAULT,
-                 CFG_FWR_MEM_DUMP_DEF,
-                 CFG_FWR_MEM_DUMP_MIN,
-                 CFG_FWR_MEM_DUMP_MAX),
-
    REG_VARIABLE( CFG_ACTIVE_PASSIVE_CHAN_CONV_NAME, WLAN_PARAM_Integer,
                  hdd_config_t, gActivePassiveChCon,
                  VAR_FLAGS_OPTIONAL | VAR_FLAGS_RANGE_CHECK_ASSUME_DEFAULT,
@@ -4107,8 +4100,8 @@ static char *i_trim(char *str)
 
    /* Find the first non white-space*/
    for (ptr = str; i_isspace(*ptr); ptr++);
-      if (*ptr == '\0')
-         return str;
+   if (*ptr == '\0')
+      return str;
 
    /* This is the new start of the string*/
    str = ptr;
@@ -4116,8 +4109,8 @@ static char *i_trim(char *str)
    /* Find the last non white-space */
    ptr += strlen(ptr) - 1;
    for (; ptr != str && i_isspace(*ptr); ptr--);
-      /* Null terminate the following character */
-      ptr[1] = '\0';
+   /* Null terminate the following character */
+   ptr[1] = '\0';
 
    return str;
 }

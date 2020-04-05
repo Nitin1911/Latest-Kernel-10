@@ -4380,7 +4380,7 @@ void set_task_cpu(struct task_struct *p, unsigned int new_cpu)
 		if (p->sched_class->migrate_task_rq)
 			p->sched_class->migrate_task_rq(p, new_cpu);
 		p->se.nr_migrations++;
-		perf_sw_event(PERF_COUNT_SW_CPU_MIGRATIONS, 1, NULL, 0);
+		perf_sw_event_sched(PERF_COUNT_SW_CPU_MIGRATIONS, 1, 0);
 
 		fixup_busy_time(p, new_cpu);
 	}
@@ -5400,6 +5400,10 @@ int sched_fork(unsigned long clone_flags, struct task_struct *p)
 {
 	unsigned long flags;
 	int cpu = get_cpu();
+
+#ifdef CONFIG_CPU_FREQ_STAT
+	cpufreq_task_stats_init(p);
+#endif
 
 	__sched_fork(clone_flags, p);
 	/*
